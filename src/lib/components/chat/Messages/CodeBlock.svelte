@@ -434,7 +434,7 @@
 
 <div>
 	<div
-		class="relative {className} flex flex-col rounded-2xl border border-gray-100/30 dark:border-gray-850/30 my-0.5"
+		class="owui-code-block relative {className} flex flex-col rounded-2xl border border-gray-100/30 dark:border-gray-850/30 my-0.5"
 		dir="ltr"
 	>
 		{#if ['mermaid', 'vega', 'vega-lite'].includes(lang)}
@@ -458,7 +458,7 @@
 			{/if}
 		{:else}
 			<div
-				class="sticky {stickyButtonsClassName} left-0 right-0 py-1.5 px-3.5 gap-2 flex items-center justify-end w-full z-10 text-xs text-black dark:text-white bg-white dark:bg-black rounded-t-2xl"
+				class="owui-code-block-header sticky {stickyButtonsClassName} left-0 right-0 py-1.5 px-3.5 gap-2 flex items-center justify-end w-full z-10 text-xs text-black dark:text-white bg-white dark:bg-black rounded-t-2xl"
 			>
 				<div class="flex-1 truncate">
 					<Tooltip content={lang} placement="top-start">
@@ -470,7 +470,7 @@
 
 				<div class="flex items-center gap-0.5 shrink-0">
 					<button
-						class="flex gap-1 items-center bg-none border-none transition rounded-md px-1.5 py-0.5 bg-white dark:bg-black"
+						class="owui-code-block-button flex gap-1 items-center bg-none border-none transition rounded-md px-1.5 py-0.5 bg-white dark:bg-black"
 						on:click={collapseCodeBlock}
 					>
 						<div class=" -translate-y-[0.5px]">
@@ -485,13 +485,13 @@
 					{#if ($config?.features?.enable_code_execution ?? true) && (lang.toLowerCase() === 'python' || lang.toLowerCase() === 'py' || (lang === '' && checkPythonCode(code)))}
 						{#if executing}
 							<div
-								class="run-code-button bg-none border-none p-0.5 cursor-not-allowed bg-white dark:bg-black"
+								class="owui-code-block-button run-code-button bg-none border-none p-0.5 cursor-not-allowed bg-white dark:bg-black"
 							>
 								{$i18n.t('Running')}
 							</div>
 						{:else if run}
 							<button
-								class="flex gap-1 items-center run-code-button bg-none border-none transition rounded-md px-1.5 py-0.5 bg-white dark:bg-black"
+								class="owui-code-block-button flex gap-1 items-center run-code-button bg-none border-none transition rounded-md px-1.5 py-0.5 bg-white dark:bg-black"
 								on:click={async () => {
 									code = _code;
 									await tick();
@@ -507,7 +507,7 @@
 
 					{#if save}
 						<button
-							class="save-code-button bg-none border-none transition rounded-md px-1.5 py-0.5 bg-white dark:bg-black"
+							class="owui-code-block-button save-code-button bg-none border-none transition rounded-md px-1.5 py-0.5 bg-white dark:bg-black"
 							on:click={saveCode}
 						>
 							{saved ? $i18n.t('Saved') : $i18n.t('Save')}
@@ -515,13 +515,13 @@
 					{/if}
 
 					<button
-						class="copy-code-button bg-none border-none transition rounded-md px-1.5 py-0.5 bg-white dark:bg-black"
+						class="owui-code-block-button copy-code-button bg-none border-none transition rounded-md px-1.5 py-0.5 bg-white dark:bg-black"
 						on:click={copyCode}>{copied ? $i18n.t('Copied') : $i18n.t('Copy')}</button
 					>
 
 					{#if preview && ['html', 'svg'].includes(lang)}
 						<button
-							class="flex gap-1 items-center run-code-button bg-none border-none transition rounded-md px-1.5 py-0.5 bg-white dark:bg-black"
+							class="owui-code-block-button flex gap-1 items-center run-code-button bg-none border-none transition rounded-md px-1.5 py-0.5 bg-white dark:bg-black"
 							on:click={previewCode}
 						>
 							<div>
@@ -539,7 +539,7 @@
 						? ''
 						: 'rounded-b-2xl'} overflow-hidden"
 			>
-				<div class=" pt-6.5 bg-white dark:bg-black"></div>
+				<div class="owui-code-block-spacer pt-6.5 bg-white dark:bg-black"></div>
 
 				{#if !collapsed}
 					{#if edit}
@@ -569,7 +569,7 @@
 					{/if}
 				{:else}
 					<div
-						class="bg-white dark:bg-black dark:text-white rounded-b-2xl! pt-1 pb-2 px-4 flex flex-col gap-2 text-xs"
+						class="owui-code-block-collapsed bg-white dark:bg-black dark:text-white rounded-b-2xl! pt-1 pb-2 px-4 flex flex-col gap-2 text-xs"
 					>
 						<span class="text-gray-500 italic">
 							{$i18n.t('{{COUNT}} hidden lines', {

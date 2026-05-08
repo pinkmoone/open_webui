@@ -72,6 +72,41 @@
 		}
 	};
 
+	let userMessageCollapsed = false;
+	let lastLoadedCollapseStorageKey = '';
+
+	$: userMessageCollapseStorageKey = `open-webui:user-message-collapsed:${chatId || 'chat'}:${message?.id || 'message'}`;
+
+	const loadUserMessageCollapseState = () => {
+		if (typeof localStorage === 'undefined' || !message?.id) return;
+		userMessageCollapsed = localStorage.getItem(userMessageCollapseStorageKey) === 'true';
+	};
+
+	$: if (message?.id && userMessageCollapseStorageKey) {
+		if (lastLoadedCollapseStorageKey !== userMessageCollapseStorageKey) {
+			loadUserMessageCollapseState();
+			lastLoadedCollapseStorageKey = userMessageCollapseStorageKey;
+		}
+	}
+
+	const setUserMessageCollapsed = (collapsed: boolean) => {
+		userMessageCollapsed = collapsed;
+		if (typeof localStorage !== 'undefined') {
+			localStorage.setItem(userMessageCollapseStorageKey, userMessageCollapsed ? 'true' : 'false');
+		}
+	};
+
+	const toggleUserMessageCollapsed = () => {
+		setUserMessageCollapsed(!userMessageCollapsed);
+	};
+
+	const handleMessageCollapseAll = (event: Event) => {
+		const collapsed = (event as CustomEvent)?.detail?.collapsed;
+		if (typeof collapsed === 'boolean' && message?.id) {
+			setUserMessageCollapsed(collapsed);
+		}
+	};
+
 	const editMessageHandler = async () => {
 		edit = true;
 		editedContent = message?.content ?? '';
@@ -126,6 +161,8 @@
 		deleteMessageHandler();
 	}}
 />
+
+<svelte:window on:open-webui-message-collapse-all={handleMessageCollapseAll} />
 
 <div
 	class=" flex w-full user-message group"
@@ -369,7 +406,9 @@
 				<div class="w-full">
 					<div class="flex {($settings?.chatBubble ?? true) ? 'justify-end pb-1' : 'w-full'}">
 						<div
-							class="rounded-3xl {($settings?.chatBubble ?? true)
+							class="rounded-3xl {userMessageCollapsed
+								? 'hidden'
+								: ''} {($settings?.chatBubble ?? true)
 								? `max-w-[90%] px-4 py-1.5 owui-chat-bubble border owui-border ${
 										message.files ? 'rounded-tr-lg' : ''
 									}`
@@ -384,6 +423,26 @@
 								/>
 							{/if}
 						</div>
+						{#if userMessageCollapsed}
+							<button
+								type="button"
+								class="inline-flex max-w-[90%] items-center gap-1.5 rounded-3xl border owui-border owui-chat-bubble px-3 py-1.5 text-sm text-gray-700 dark:text-gray-200 transition hover:bg-gray-100 dark:hover:bg-gray-800"
+								on:click={toggleUserMessageCollapsed}
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke-width="2.2"
+									stroke="currentColor"
+									class="size-3.5"
+									aria-hidden="true"
+								>
+									<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+								</svg>
+								{$i18n.t('Message collapsed')}
+							</button>
+						{/if}
 					</div>
 				</div>
 			{/if}
@@ -517,6 +576,33 @@
 					{/if}
 
 					{#if message?.content}
+						<Tooltip
+							content={userMessageCollapsed ? $i18n.t('Expand message') : $i18n.t('Collapse message')}
+							placement="bottom"
+						>
+							<button
+								type="button"
+								aria-label={userMessageCollapsed ? $i18n.t('Expand message') : $i18n.t('Collapse message')}
+								aria-expanded={!userMessageCollapsed}
+								class="{($settings?.highContrastMode ?? false)
+									? ''
+									: 'invisible group-hover:visible'} p-1.5 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg dark:hover:text-white hover:text-black transition"
+								on:click={toggleUserMessageCollapsed}
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke-width="2.3"
+									stroke="currentColor"
+									class="w-4 h-4 transition-transform {userMessageCollapsed ? '-rotate-90' : ''}"
+									aria-hidden="true"
+								>
+									<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+								</svg>
+							</button>
+						</Tooltip>
+
 						<Tooltip content={$i18n.t('Copy')} placement="bottom">
 							<button
 								class="{($settings?.highContrastMode ?? false)

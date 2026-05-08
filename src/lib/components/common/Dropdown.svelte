@@ -29,9 +29,31 @@
 
 	/** Svelte action: moves the node to document.body */
 	function portal(node) {
+		const syncThemeClasses = () => {
+			const hasDarkContext =
+				document.documentElement.classList.contains('dark') ||
+				document.body.classList.contains('dark') ||
+				!!document.body.querySelector('.dark');
+			const hasOledContext =
+				document.documentElement.classList.contains('oled-dark') ||
+				document.body.classList.contains('oled-dark') ||
+				!!document.body.querySelector('.oled-dark');
+
+			node.classList.add('owui-dropdown-portal');
+			node.classList.toggle('dark', hasDarkContext);
+			node.classList.toggle('oled-dark', hasOledContext);
+		};
+
+		syncThemeClasses();
 		document.body.appendChild(node);
+
+		const observer = new MutationObserver(syncThemeClasses);
+		observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+		observer.observe(document.body, { attributes: true, attributeFilter: ['class'], childList: true });
+
 		return {
 			destroy() {
+				observer.disconnect();
 				if (node.parentNode) {
 					node.parentNode.removeChild(node);
 				}

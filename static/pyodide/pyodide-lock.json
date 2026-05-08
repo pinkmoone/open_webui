@@ -4975,10 +4975,10 @@
     },
     "black": {
       "name": "black",
-      "version": "26.3.1",
-      "file_name": "black-26.3.1-py3-none-any.whl",
+      "version": "24.8.0",
+      "file_name": "black-24.8.0-py3-none-any.whl",
       "install_dir": "site",
-      "sha256": "2bd5aa94fc267d38bb21a70d7410a89f1a1d318841855f698746f8e7f51acd1b",
+      "sha256": "972085c618ee94f402da1af548a4f218c754ea7e5dc70acb168bfaca4c2542ed",
       "package_type": "package",
       "imports": [
         "black"
@@ -4987,37 +4987,13 @@
     },
     "pathspec": {
       "name": "pathspec",
-      "version": "1.1.1",
-      "file_name": "pathspec-1.1.1-py3-none-any.whl",
+      "version": "0.12.1",
+      "file_name": "pathspec-0.12.1-py3-none-any.whl",
       "install_dir": "site",
-      "sha256": "a00ce642f577bf7f473932318056212bc4f8bfdf53128c78bbd5af0b9b20b189",
+      "sha256": "a0d503e138a4c123b27490a4f7beda6a01c6f288df0e4a8b79c7eb0dc7b4cc08",
       "package_type": "package",
       "imports": [
         "pathspec"
-      ],
-      "depends": []
-    },
-    "mypy_extensions": {
-      "name": "mypy_extensions",
-      "version": "1.1.0",
-      "file_name": "mypy_extensions-1.1.0-py3-none-any.whl",
-      "install_dir": "site",
-      "sha256": "1be4cccdb0f2482337c4743e60421de3a356cd97508abadd57d47403e94f5505",
-      "package_type": "package",
-      "imports": [
-        "mypy_extensions"
-      ],
-      "depends": []
-    },
-    "pytokens": {
-      "name": "pytokens",
-      "version": "0.4.1",
-      "file_name": "pytokens-0.4.1-py3-none-any.whl",
-      "install_dir": "site",
-      "sha256": "26cef14744a8385f35d0e095dc8b3a7583f6c953c2e3d269c7f82484bf5ad2de",
-      "package_type": "package",
-      "imports": [
-        "pytokens"
       ],
       "depends": []
     }

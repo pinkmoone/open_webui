@@ -558,14 +558,14 @@
 				: ''}"
 		>
 			<div
-				class="z-40 {$mobile
+				class="owui-model-selector z-40 {$mobile
 					? `w-full`
 					: `${className}`} max-w-[calc(100vw-1rem)] justify-start rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-850 text-gray-900 dark:text-gray-100 shadow-lg outline-hidden"
 				transition:flyAndScale
 			>
 				<slot>
 					{#if searchEnabled}
-						<div class="flex items-center gap-2.5 px-4.5 pt-3.5 mb-1.5">
+						<div class="owui-model-search-row flex items-center gap-2.5 px-4.5 pt-3.5 mb-1.5 bg-transparent text-gray-700 dark:text-gray-200">
 							<Search className="size-4" strokeWidth="2.5" />
 
 							<input
@@ -604,7 +604,7 @@
 					<div class="px-2">
 						{#if tags && items.filter((item) => !(item.model?.info?.meta?.hidden ?? false)).length > 0}
 							<div
-								class=" flex w-full bg-white dark:bg-gray-850 text-gray-700 dark:text-gray-200 overflow-x-auto scrollbar-none font-[450] mb-0.5"
+								class="owui-model-tags flex w-full bg-transparent dark:bg-transparent text-gray-700 dark:text-gray-200 overflow-x-auto scrollbar-none font-[450] mb-0.5"
 								on:wheel={(e) => {
 									if (e.deltaY !== 0) {
 										e.preventDefault();

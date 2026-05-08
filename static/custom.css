@@ -1,0 +1,415 @@
+/* Dark dropdown fallback for menus portaled to document.body. */
+html.dark body > div[class*='bg-white'][class*='rounded-'],
+html.dark body > div > div[class*='bg-white'][class*='rounded-'],
+html.oled-dark body > div[class*='bg-white'][class*='rounded-'],
+html.oled-dark body > div > div[class*='bg-white'][class*='rounded-'] {
+	background-color: #262626 !important;
+	color: #f5f5f5 !important;
+	border-color: #3f3f46 !important;
+}
+
+html.dark body > div[class*='bg-white'][class*='rounded-'] hr,
+html.dark body > div > div[class*='bg-white'][class*='rounded-'] hr,
+html.oled-dark body > div[class*='bg-white'][class*='rounded-'] hr,
+html.oled-dark body > div > div[class*='bg-white'][class*='rounded-'] hr {
+	border-color: #3f3f46 !important;
+}
+
+/* Some Open WebUI builds apply the dark class inside the app root while dropdowns
+   are portaled directly under body. Match that real DOM shape as well. */
+body:has(.dark) > div[class*='bg-white'][class*='rounded-'],
+body:has(.dark) > div > div[class*='bg-white'][class*='rounded-'],
+body:has(.dark) div[class*='w-[240px]'][class*='bg-white'],
+body:has(.dark) div[class*='w-[240px]'] {
+	background-color: #262626 !important;
+	color: #f5f5f5 !important;
+	border-color: #3f3f46 !important;
+}
+
+body:has(.dark) > div[class*='bg-white'][class*='rounded-'] *,
+body:has(.dark) > div > div[class*='bg-white'][class*='rounded-'] *,
+body:has(.dark) div[class*='w-[240px]'] * {
+	color: inherit !important;
+}
+
+body:has(.dark) > div[class*='bg-white'][class*='rounded-'] button:hover,
+body:has(.dark) > div > div[class*='bg-white'][class*='rounded-'] button:hover,
+body:has(.dark) div[class*='w-[240px]'] button:hover,
+body:has(.dark) div[class*='w-[240px]'] a:hover {
+	background-color: #3a3a3a !important;
+}
+
+body:has(.dark) > div[class*='bg-white'][class*='rounded-'] hr,
+body:has(.dark) > div > div[class*='bg-white'][class*='rounded-'] hr,
+body:has(.dark) div[class*='w-[240px]'] hr {
+	border-color: #3f3f46 !important;
+}
+
+/* Dark floating panel hardening 20260508-2 */
+html.dark .owui-dropdown-portal,
+html.oled-dark .owui-dropdown-portal,
+.owui-dropdown-portal.dark,
+.owui-dropdown-portal.oled-dark,
+html.dark [class*='z-50'][class*='shadow-lg'][class*='bg-white'],
+html.oled-dark [class*='z-50'][class*='shadow-lg'][class*='bg-white'],
+html.dark [class*='rounded-2xl'][class*='shadow-lg'][class*='bg-white'],
+html.oled-dark [class*='rounded-2xl'][class*='shadow-lg'][class*='bg-white'] {
+	background-color: #262626 !important;
+	color: #f5f5f5 !important;
+	border-color: #3f3f46 !important;
+}
+
+html.dark .owui-dropdown-portal *,
+html.oled-dark .owui-dropdown-portal *,
+.owui-dropdown-portal.dark *,
+.owui-dropdown-portal.oled-dark *,
+html.dark [class*='z-50'][class*='shadow-lg'][class*='bg-white'] *,
+html.oled-dark [class*='z-50'][class*='shadow-lg'][class*='bg-white'] *,
+html.dark [class*='rounded-2xl'][class*='shadow-lg'][class*='bg-white'] *,
+html.oled-dark [class*='rounded-2xl'][class*='shadow-lg'][class*='bg-white'] * {
+	color: inherit !important;
+}
+
+html.dark .owui-dropdown-portal button:hover,
+html.oled-dark .owui-dropdown-portal button:hover,
+.owui-dropdown-portal.dark button:hover,
+.owui-dropdown-portal.oled-dark button:hover,
+html.dark [class*='z-50'][class*='shadow-lg'][class*='bg-white'] button:hover,
+html.oled-dark [class*='z-50'][class*='shadow-lg'][class*='bg-white'] button:hover,
+html.dark [class*='rounded-2xl'][class*='shadow-lg'][class*='bg-white'] button:hover,
+html.oled-dark [class*='rounded-2xl'][class*='shadow-lg'][class*='bg-white'] button:hover {
+	background-color: #3a3a3a !important;
+}
+
+html.dark .owui-dropdown-portal hr,
+html.oled-dark .owui-dropdown-portal hr,
+.owui-dropdown-portal.dark hr,
+.owui-dropdown-portal.oled-dark hr,
+html.dark [class*='z-50'][class*='shadow-lg'][class*='bg-white'] hr,
+html.oled-dark [class*='z-50'][class*='shadow-lg'][class*='bg-white'] hr,
+html.dark [class*='rounded-2xl'][class*='shadow-lg'][class*='bg-white'] hr,
+html.oled-dark [class*='rounded-2xl'][class*='shadow-lg'][class*='bg-white'] hr {
+	border-color: #3f3f46 !important;
+}
+/* Dark chat response hardening 20260508-3 */
+html.dark .chat-assistant .chat-response-surface,
+html.oled-dark .chat-assistant .chat-response-surface {
+	color: #f5f5f5 !important;
+}
+
+html.dark .chat-assistant .chat-response-surface :where(table, thead, tbody, tr, th, td),
+html.oled-dark .chat-assistant .chat-response-surface :where(table, thead, tbody, tr, th, td) {
+	background-color: #171717 !important;
+	color: #f5f5f5 !important;
+	border-color: #3f3f46 !important;
+}
+
+html.dark .chat-assistant .chat-response-surface :where(thead, th),
+html.oled-dark .chat-assistant .chat-response-surface :where(thead, th) {
+	background-color: #262626 !important;
+	color: #e5e7eb !important;
+}
+
+html.dark .chat-assistant .chat-response-surface :where(tbody tr:nth-child(even), tbody tr:nth-child(even) td),
+html.oled-dark .chat-assistant .chat-response-surface :where(tbody tr:nth-child(even), tbody tr:nth-child(even) td) {
+	background-color: #202020 !important;
+}
+
+html.dark .chat-assistant .chat-response-surface :where([style*='background'], [bgcolor]),
+html.oled-dark .chat-assistant .chat-response-surface :where([style*='background'], [bgcolor]) {
+	background-color: #171717 !important;
+	color: #f5f5f5 !important;
+}
+
+/* Dark button/input hardening 20260508-4 */
+html.dark #sidebar-new-chat-button,
+html.dark #sidebar-search-button,
+html.oled-dark #sidebar-new-chat-button,
+html.oled-dark #sidebar-search-button,
+html.dark .owui-sidebar-action,
+html.oled-dark .owui-sidebar-action {
+	background-color: transparent !important;
+	color: #e5e7eb !important;
+	border-color: transparent !important;
+}
+
+html.dark #sidebar-new-chat-button:hover,
+html.dark #sidebar-search-button:hover,
+html.oled-dark #sidebar-new-chat-button:hover,
+html.oled-dark #sidebar-search-button:hover,
+html.dark .owui-sidebar-action:hover,
+html.oled-dark .owui-sidebar-action:hover {
+	background-color: #262626 !important;
+	color: #f5f5f5 !important;
+}
+
+html.dark .owui-stop-response-button,
+html.oled-dark .owui-stop-response-button {
+	background-color: #262626 !important;
+	color: #ffffff !important;
+	border-color: #3f3f46 !important;
+}
+
+html.dark .owui-stop-response-button:hover,
+html.oled-dark .owui-stop-response-button:hover {
+	background-color: #333333 !important;
+}
+
+html.dark .owui-model-selector,
+html.oled-dark .owui-model-selector {
+	background-color: #262626 !important;
+	color: #f5f5f5 !important;
+	border-color: #3f3f46 !important;
+}
+
+html.dark .owui-model-selector :where(.owui-model-search-row, .owui-model-tags),
+html.oled-dark .owui-model-selector :where(.owui-model-search-row, .owui-model-tags) {
+	background-color: transparent !important;
+	color: #e5e7eb !important;
+}
+
+html.dark #model-search-input,
+html.oled-dark #model-search-input {
+	background-color: transparent !important;
+	color: #f5f5f5 !important;
+	caret-color: #f5f5f5 !important;
+}
+
+html.dark #model-search-input::placeholder,
+html.oled-dark #model-search-input::placeholder {
+	color: #a3a3a3 !important;
+}
+
+html.dark :where(button, a, input, textarea, select)[class*='bg-white']:not([class*='data-[state=unchecked]']):not(.no-toggle),
+html.oled-dark :where(button, a, input, textarea, select)[class*='bg-white']:not([class*='data-[state=unchecked]']):not(.no-toggle),
+html.dark :where(button, a, input, textarea, select)[class*='bg-gray-50']:not(.no-toggle),
+html.oled-dark :where(button, a, input, textarea, select)[class*='bg-gray-50']:not(.no-toggle) {
+	background-color: #262626 !important;
+	color: #f5f5f5 !important;
+	border-color: #3f3f46 !important;
+}
+
+html.dark :where(button, a)[class*='dark:bg-white'],
+html.oled-dark :where(button, a)[class*='dark:bg-white'] {
+	background-color: #262626 !important;
+	color: #f5f5f5 !important;
+	border-color: #3f3f46 !important;
+}
+
+html.dark :where(button, a)[class*='hover:bg-gray-100']:hover,
+html.oled-dark :where(button, a)[class*='hover:bg-gray-100']:hover {
+	background-color: #333333 !important;
+	color: #ffffff !important;
+}
+
+.dark #sidebar-new-chat-button,
+.dark #sidebar-search-button,
+.oled-dark #sidebar-new-chat-button,
+.oled-dark #sidebar-search-button,
+.dark .owui-sidebar-action,
+.oled-dark .owui-sidebar-action {
+	background-color: transparent !important;
+	color: #e5e7eb !important;
+	border-color: transparent !important;
+}
+
+.dark #sidebar-new-chat-button:hover,
+.dark #sidebar-search-button:hover,
+.oled-dark #sidebar-new-chat-button:hover,
+.oled-dark #sidebar-search-button:hover,
+.dark .owui-sidebar-action:hover,
+.oled-dark .owui-sidebar-action:hover {
+	background-color: #262626 !important;
+	color: #f5f5f5 !important;
+}
+
+.dark .owui-stop-response-button,
+.oled-dark .owui-stop-response-button,
+.dark .owui-model-selector,
+.oled-dark .owui-model-selector,
+body:has(.dark) .owui-model-selector,
+body:has(.oled-dark) .owui-model-selector {
+	background-color: #262626 !important;
+	color: #f5f5f5 !important;
+	border-color: #3f3f46 !important;
+}
+
+.dark .owui-stop-response-button:hover,
+.oled-dark .owui-stop-response-button:hover,
+body:has(.dark) .owui-stop-response-button:hover,
+body:has(.oled-dark) .owui-stop-response-button:hover {
+	background-color: #333333 !important;
+}
+
+.dark .owui-model-selector :where(.owui-model-search-row, .owui-model-tags),
+.oled-dark .owui-model-selector :where(.owui-model-search-row, .owui-model-tags),
+body:has(.dark) .owui-model-selector :where(.owui-model-search-row, .owui-model-tags),
+body:has(.oled-dark) .owui-model-selector :where(.owui-model-search-row, .owui-model-tags) {
+	background-color: transparent !important;
+	color: #e5e7eb !important;
+}
+
+.dark #model-search-input,
+.oled-dark #model-search-input,
+body:has(.dark) #model-search-input,
+body:has(.oled-dark) #model-search-input {
+	background-color: transparent !important;
+	color: #f5f5f5 !important;
+	caret-color: #f5f5f5 !important;
+}
+
+.dark #model-search-input::placeholder,
+.oled-dark #model-search-input::placeholder,
+body:has(.dark) #model-search-input::placeholder,
+body:has(.oled-dark) #model-search-input::placeholder {
+	color: #a3a3a3 !important;
+}
+
+.dark :where(button, a, input, textarea, select)[class*='bg-white']:not([class*='data-[state=unchecked]']):not(.no-toggle),
+.oled-dark :where(button, a, input, textarea, select)[class*='bg-white']:not([class*='data-[state=unchecked]']):not(.no-toggle),
+.dark :where(button, a, input, textarea, select)[class*='bg-gray-50']:not(.no-toggle),
+.oled-dark :where(button, a, input, textarea, select)[class*='bg-gray-50']:not(.no-toggle),
+body:has(.dark) :where(button, a, input, textarea, select)[class*='bg-white']:not([class*='data-[state=unchecked]']):not(.no-toggle),
+body:has(.oled-dark) :where(button, a, input, textarea, select)[class*='bg-white']:not([class*='data-[state=unchecked]']):not(.no-toggle),
+body:has(.dark) :where(button, a, input, textarea, select)[class*='bg-gray-50']:not(.no-toggle),
+body:has(.oled-dark) :where(button, a, input, textarea, select)[class*='bg-gray-50']:not(.no-toggle) {
+	background-color: #262626 !important;
+	color: #f5f5f5 !important;
+	border-color: #3f3f46 !important;
+}
+
+.dark :where(button, a)[class*='dark:bg-white'],
+.oled-dark :where(button, a)[class*='dark:bg-white'],
+body:has(.dark) :where(button, a)[class*='dark:bg-white'],
+body:has(.oled-dark) :where(button, a)[class*='dark:bg-white'] {
+	background-color: #262626 !important;
+	color: #f5f5f5 !important;
+	border-color: #3f3f46 !important;
+}
+
+.dark :where(button, a)[class*='hover:bg-gray-100']:hover,
+.oled-dark :where(button, a)[class*='hover:bg-gray-100']:hover,
+body:has(.dark) :where(button, a)[class*='hover:bg-gray-100']:hover,
+body:has(.oled-dark) :where(button, a)[class*='hover:bg-gray-100']:hover {
+	background-color: #333333 !important;
+	color: #ffffff !important;
+}
+
+/* Dark code block title hardening 20260508-5 */
+html.dark .chat-assistant .owui-code-block,
+html.oled-dark .chat-assistant .owui-code-block,
+.dark .chat-assistant .owui-code-block,
+.oled-dark .chat-assistant .owui-code-block,
+body:has(.dark) .chat-assistant .owui-code-block,
+body:has(.oled-dark) .chat-assistant .owui-code-block {
+	background-color: #050505 !important;
+	color: #f5f5f5 !important;
+	border-color: #3f3f46 !important;
+}
+
+html.dark .chat-assistant .owui-code-block :where(.owui-code-block-header, .owui-code-block-button, .owui-code-block-spacer, .owui-code-block-collapsed),
+html.oled-dark .chat-assistant .owui-code-block :where(.owui-code-block-header, .owui-code-block-button, .owui-code-block-spacer, .owui-code-block-collapsed),
+.dark .chat-assistant .owui-code-block :where(.owui-code-block-header, .owui-code-block-button, .owui-code-block-spacer, .owui-code-block-collapsed),
+.oled-dark .chat-assistant .owui-code-block :where(.owui-code-block-header, .owui-code-block-button, .owui-code-block-spacer, .owui-code-block-collapsed),
+body:has(.dark) .chat-assistant .owui-code-block :where(.owui-code-block-header, .owui-code-block-button, .owui-code-block-spacer, .owui-code-block-collapsed),
+body:has(.oled-dark) .chat-assistant .owui-code-block :where(.owui-code-block-header, .owui-code-block-button, .owui-code-block-spacer, .owui-code-block-collapsed) {
+	background-color: #050505 !important;
+	color: #f5f5f5 !important;
+	border-color: #3f3f46 !important;
+}
+
+html.dark .chat-assistant .owui-code-block :where(.hljs, pre, code),
+html.oled-dark .chat-assistant .owui-code-block :where(.hljs, pre, code),
+.dark .chat-assistant .owui-code-block :where(.hljs, pre, code),
+.oled-dark .chat-assistant .owui-code-block :where(.hljs, pre, code),
+body:has(.dark) .chat-assistant .owui-code-block :where(.hljs, pre, code),
+body:has(.oled-dark) .chat-assistant .owui-code-block :where(.hljs, pre, code) {
+	background-color: #050505 !important;
+	color: #f5f5f5 !important;
+}
+
+html.dark .chat-assistant .owui-code-block .hljs *,
+html.oled-dark .chat-assistant .owui-code-block .hljs *,
+.dark .chat-assistant .owui-code-block .hljs *,
+.oled-dark .chat-assistant .owui-code-block .hljs *,
+body:has(.dark) .chat-assistant .owui-code-block .hljs *,
+body:has(.oled-dark) .chat-assistant .owui-code-block .hljs * {
+	background-color: transparent !important;
+}
+
+/* Dark notes/workspace hardening 20260508-7 */
+html.dark :where(#notes-container, #workspace-container, #collection-container),
+html.oled-dark :where(#notes-container, #workspace-container, #collection-container),
+body:has(.dark) :where(#notes-container, #workspace-container, #collection-container),
+body:has(.oled-dark) :where(#notes-container, #workspace-container, #collection-container) {
+	background-color: #171717 !important;
+	color: #f5f5f5 !important;
+}
+
+html.dark :where(#notes-container, #workspace-container, #collection-container)
+	:where([class*='bg-white'], [class*='bg-gray-50'], [class*='bg-gray-100']),
+html.oled-dark :where(#notes-container, #workspace-container, #collection-container)
+	:where([class*='bg-white'], [class*='bg-gray-50'], [class*='bg-gray-100']),
+body:has(.dark) :where(#notes-container, #workspace-container, #collection-container)
+	:where([class*='bg-white'], [class*='bg-gray-50'], [class*='bg-gray-100']),
+body:has(.oled-dark) :where(#notes-container, #workspace-container, #collection-container)
+	:where([class*='bg-white'], [class*='bg-gray-50'], [class*='bg-gray-100']) {
+	background-color: #262626 !important;
+	color: #f5f5f5 !important;
+	border-color: #3f3f46 !important;
+}
+
+html.dark :where(#notes-container, #workspace-container, #collection-container)
+	:where(input, textarea, select),
+html.oled-dark :where(#notes-container, #workspace-container, #collection-container)
+	:where(input, textarea, select),
+body:has(.dark) :where(#notes-container, #workspace-container, #collection-container)
+	:where(input, textarea, select),
+body:has(.oled-dark) :where(#notes-container, #workspace-container, #collection-container)
+	:where(input, textarea, select) {
+	background-color: transparent !important;
+	color: #f5f5f5 !important;
+	caret-color: #f5f5f5 !important;
+}
+
+html.dark :where(#notes-container, #workspace-container, #collection-container)
+	:where(input, textarea)::placeholder,
+html.oled-dark :where(#notes-container, #workspace-container, #collection-container)
+	:where(input, textarea)::placeholder,
+body:has(.dark) :where(#notes-container, #workspace-container, #collection-container)
+	:where(input, textarea)::placeholder,
+body:has(.oled-dark) :where(#notes-container, #workspace-container, #collection-container)
+	:where(input, textarea)::placeholder {
+	color: #a3a3a3 !important;
+}
+
+html.dark :where(#notes-container, #workspace-container, #collection-container)
+	:where([class*='border-gray-50'], [class*='border-gray-100']),
+html.oled-dark :where(#notes-container, #workspace-container, #collection-container)
+	:where([class*='border-gray-50'], [class*='border-gray-100']),
+body:has(.dark) :where(#notes-container, #workspace-container, #collection-container)
+	:where([class*='border-gray-50'], [class*='border-gray-100']),
+body:has(.oled-dark) :where(#notes-container, #workspace-container, #collection-container)
+	:where([class*='border-gray-50'], [class*='border-gray-100']) {
+	border-color: #3f3f46 !important;
+}
+
+html.dark :where(#notes-container, #workspace-container, #collection-container)
+	:where([class*='hover:bg-white'], [class*='hover:bg-gray-50'], [class*='hover:bg-gray-100']):hover,
+html.oled-dark :where(#notes-container, #workspace-container, #collection-container)
+	:where([class*='hover:bg-white'], [class*='hover:bg-gray-50'], [class*='hover:bg-gray-100']):hover,
+body:has(.dark) :where(#notes-container, #workspace-container, #collection-container)
+	:where([class*='hover:bg-white'], [class*='hover:bg-gray-50'], [class*='hover:bg-gray-100']):hover,
+body:has(.oled-dark) :where(#notes-container, #workspace-container, #collection-container)
+	:where([class*='hover:bg-white'], [class*='hover:bg-gray-50'], [class*='hover:bg-gray-100']):hover {
+	background-color: #333333 !important;
+	color: #ffffff !important;
+}
+
+html.dark #workspace-container nav,
+html.oled-dark #workspace-container nav,
+body:has(.dark) #workspace-container nav,
+body:has(.oled-dark) #workspace-container nav {
+	background-color: transparent !important;
+	color: #f5f5f5 !important;
+}

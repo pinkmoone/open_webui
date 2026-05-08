@@ -181,11 +181,11 @@
 		<div class="relative w-full group mb-2">
 			<div class="scrollbar-hidden relative overflow-x-auto max-w-full">
 				<table
-					class=" w-full text-sm text-start text-gray-500 dark:text-gray-400 max-w-full rounded-xl"
+					class="w-full text-sm text-start text-gray-500 dark:text-gray-300 max-w-full rounded-xl border border-gray-100 dark:border-gray-800 overflow-hidden"
 					dir="auto"
 				>
 					<thead
-						class="text-xs text-gray-700 uppercase bg-white dark:bg-gray-900 dark:text-gray-400 border-none"
+						class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-850 dark:text-gray-300 border-none"
 					>
 						<tr class="">
 							{#each token.header as header, headerIdx}
@@ -211,10 +211,10 @@
 					</thead>
 					<tbody>
 						{#each token.rows as row, rowIdx}
-							<tr class="bg-white dark:bg-gray-900 text-xs">
+							<tr class="bg-white dark:bg-gray-900 text-xs dark:odd:bg-gray-900 dark:even:bg-gray-850/70">
 								{#each row ?? [] as cell, cellIdx}
 									<td
-										class="px-3! py-2! text-gray-900 dark:text-white w-max {token.rows.length -
+										class="px-3! py-2! text-gray-900 dark:text-gray-100 w-max {token.rows.length -
 											1 ===
 										rowIdx
 											? ''

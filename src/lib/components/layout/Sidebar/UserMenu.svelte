@@ -123,7 +123,7 @@
 
 	<div slot="content">
 		<div
-			class="{className} rounded-2xl px-1 py-1 border border-gray-100 dark:border-gray-800 z-50 bg-white dark:bg-gray-850 text-gray-900 dark:text-gray-100 shadow-lg text-sm"
+			class="{className} rounded-2xl px-1 py-1 border border-gray-800 z-50 bg-gray-850 text-gray-100 shadow-lg text-sm"
 		>
 			{#if profile}
 				<div class=" flex gap-3.5 w-full p-2.5 items-center">
@@ -165,7 +165,7 @@
 				{#if $user?.status_emoji || $user?.status_message}
 					<div class="mx-1">
 						<button
-							class="mb-1 w-full gap-2 px-2.5 py-1.5 rounded-xl bg-gray-50 dark:text-white dark:bg-gray-900/50 text-black transition text-xs flex items-center"
+							class="mb-1 w-full gap-2 px-2.5 py-1.5 rounded-xl bg-gray-800 text-gray-100 hover:bg-gray-700 transition text-xs flex items-center"
 							type="button"
 							on:click={() => {
 								show = false;
@@ -216,7 +216,7 @@
 				{:else}
 					<div class="mx-1">
 						<button
-							class="mb-1 w-full px-3 py-1.5 gap-1 rounded-xl bg-gray-50 dark:text-white dark:bg-gray-900/50 text-black transition text-xs flex items-center justify-center"
+							class="mb-1 w-full px-3 py-1.5 gap-1 rounded-xl bg-gray-800 text-gray-100 hover:bg-gray-700 transition text-xs flex items-center justify-center"
 							type="button"
 							on:click={() => {
 								show = false;
@@ -231,11 +231,11 @@
 					</div>
 				{/if}
 
-				<hr class=" border-gray-50/30 dark:border-gray-800/30 my-1.5 p-0" />
+				<hr class=" border-gray-800/70 my-1.5 p-0" />
 			{/if}
 
 			<button
-				class="flex rounded-xl py-1.5 px-3 w-full hover:bg-gray-50 dark:hover:bg-gray-800 transition cursor-pointer select-none"
+				class="flex rounded-xl py-1.5 px-3 w-full hover:bg-gray-800 transition cursor-pointer select-none"
 				type="button"
 				on:click={async () => {
 					show = false;
@@ -258,7 +258,7 @@
 				<a
 					href="/admin"
 					draggable="false"
-					class="flex rounded-xl py-1.5 px-3 w-full hover:bg-gray-50 dark:hover:bg-gray-800 transition cursor-pointer select-none"
+					class="flex rounded-xl py-1.5 px-3 w-full hover:bg-gray-800 transition cursor-pointer select-none"
 					on:click={async (e) => {
 						if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) {
 							return;
@@ -280,7 +280,7 @@
 			{/if}
 
 			<button
-				class="flex rounded-xl py-1.5 px-3 w-full hover:bg-gray-50 dark:hover:bg-gray-800 transition cursor-pointer select-none"
+				class="flex rounded-xl py-1.5 px-3 w-full hover:bg-gray-800 transition cursor-pointer select-none"
 				type="button"
 				on:click={async () => {
 					show = false;
@@ -300,14 +300,14 @@
 				<div class=" self-center truncate">{$i18n.t('Archived Chats')}</div>
 			</button>
 
-			<hr class=" border-gray-50/30 dark:border-gray-800/30 my-1 p-0" />
+			<hr class=" border-gray-800/70 my-1 p-0" />
 
 			{#if $user?.role === 'admin' || $user?.permissions?.workspace?.models || $user?.permissions?.workspace?.knowledge || $user?.permissions?.workspace?.prompts || $user?.permissions?.workspace?.tools}
 				<div class="flex items-center w-full">
 					<a
 						href="/workspace"
 						draggable="false"
-						class="flex flex-1 rounded-xl py-1.5 px-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition cursor-pointer select-none"
+						class="flex flex-1 rounded-xl py-1.5 px-3 hover:bg-gray-800 transition cursor-pointer select-none"
 						on:click={async (e) => {
 							if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
 							e.preventDefault();
@@ -345,7 +345,7 @@
 						>
 							<button
 								type="button"
-								class="p-1 mr-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+								class="p-1 mr-1 rounded-lg hover:bg-gray-700 transition"
 								on:click|preventDefault|stopPropagation={() => togglePin('workspace')}
 							>
 								{#if isPinned('workspace')}
@@ -364,7 +364,7 @@
 					<a
 						href="/notes"
 						draggable="false"
-						class="flex flex-1 rounded-xl py-1.5 px-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition cursor-pointer select-none"
+						class="flex flex-1 rounded-xl py-1.5 px-3 hover:bg-gray-800 transition cursor-pointer select-none"
 						on:click={async (e) => {
 							if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
 							e.preventDefault();
@@ -389,7 +389,7 @@
 						>
 							<button
 								type="button"
-								class="p-1 mr-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+								class="p-1 mr-1 rounded-lg hover:bg-gray-700 transition"
 								on:click|preventDefault|stopPropagation={() => togglePin('notes')}
 							>
 								{#if isPinned('notes')}
@@ -408,7 +408,7 @@
 					<a
 						href="/calendar"
 						draggable="false"
-						class="flex flex-1 rounded-xl py-1.5 px-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition cursor-pointer select-none"
+						class="flex flex-1 rounded-xl py-1.5 px-3 hover:bg-gray-800 transition cursor-pointer select-none"
 						on:click={async (e) => {
 							if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
 							e.preventDefault();
@@ -442,7 +442,7 @@
 						>
 							<button
 								type="button"
-								class="p-1 mr-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+								class="p-1 mr-1 rounded-lg hover:bg-gray-700 transition"
 								on:click|preventDefault|stopPropagation={() => togglePin('calendar')}
 							>
 								{#if isPinned('calendar')}
@@ -461,7 +461,7 @@
 					<a
 						href="/automations"
 						draggable="false"
-						class="flex flex-1 rounded-xl py-1.5 px-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition cursor-pointer select-none"
+						class="flex flex-1 rounded-xl py-1.5 px-3 hover:bg-gray-800 transition cursor-pointer select-none"
 						on:click={async (e) => {
 							if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
 							e.preventDefault();
@@ -499,7 +499,7 @@
 						>
 							<button
 								type="button"
-								class="p-1 mr-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+								class="p-1 mr-1 rounded-lg hover:bg-gray-700 transition"
 								on:click|preventDefault|stopPropagation={() => togglePin('automations')}
 							>
 								{#if isPinned('automations')}
@@ -518,7 +518,7 @@
 					<a
 						href="/playground"
 						draggable="false"
-						class="flex flex-1 rounded-xl py-1.5 px-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition cursor-pointer select-none"
+						class="flex flex-1 rounded-xl py-1.5 px-3 hover:bg-gray-800 transition cursor-pointer select-none"
 						on:click={async (e) => {
 							if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
 							e.preventDefault();
@@ -543,7 +543,7 @@
 						>
 							<button
 								type="button"
-								class="p-1 mr-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+								class="p-1 mr-1 rounded-lg hover:bg-gray-700 transition"
 								on:click|preventDefault|stopPropagation={() => togglePin('playground')}
 							>
 								{#if isPinned('playground')}
@@ -558,7 +558,7 @@
 			{/if}
 
 			{#if help}
-				<hr class=" border-gray-50/30 dark:border-gray-800/30 my-1 p-0" />
+				<hr class=" border-gray-800/70 my-1 p-0" />
 
 				<!-- {$i18n.t('Help')} -->
 
@@ -567,7 +567,7 @@
 						href="https://docs.openwebui.com"
 						target="_blank"
 						draggable="false"
-						class="flex rounded-xl py-1.5 px-3 w-full hover:bg-gray-50 dark:hover:bg-gray-800 transition cursor-pointer select-none"
+						class="flex rounded-xl py-1.5 px-3 w-full hover:bg-gray-800 transition cursor-pointer select-none"
 						id="chat-share-button"
 						on:click={() => {
 							show = false;
@@ -584,7 +584,7 @@
 						href="https://github.com/open-webui/open-webui/releases"
 						target="_blank"
 						draggable="false"
-						class="flex rounded-xl py-1.5 px-3 w-full hover:bg-gray-50 dark:hover:bg-gray-800 transition cursor-pointer select-none"
+						class="flex rounded-xl py-1.5 px-3 w-full hover:bg-gray-800 transition cursor-pointer select-none"
 						id="chat-share-button"
 						on:click={() => {
 							show = false;
@@ -598,7 +598,7 @@
 				{/if}
 
 				<button
-					class="flex rounded-xl py-1.5 px-3 w-full hover:bg-gray-50 dark:hover:bg-gray-800 transition cursor-pointer select-none"
+					class="flex rounded-xl py-1.5 px-3 w-full hover:bg-gray-800 transition cursor-pointer select-none"
 					type="button"
 					id="chat-share-button"
 					on:click={async () => {
@@ -618,10 +618,10 @@
 				</button>
 			{/if}
 
-			<hr class=" border-gray-50/30 dark:border-gray-800/30 my-1 p-0" />
+			<hr class=" border-gray-800/70 my-1 p-0" />
 
 			<button
-				class="flex rounded-xl py-1.5 px-3 w-full hover:bg-gray-50 dark:hover:bg-gray-800 transition cursor-pointer select-none"
+				class="flex rounded-xl py-1.5 px-3 w-full hover:bg-gray-800 transition cursor-pointer select-none"
 				type="button"
 				on:click={async () => {
 					const res = await userSignOut();
@@ -640,7 +640,7 @@
 
 			{#if showActiveUsers && ($config?.features?.enable_public_active_users_count || role === 'admin') && usage}
 				{#if usage?.user_count}
-					<hr class=" border-gray-50/30 dark:border-gray-800/30 my-1 p-0" />
+					<hr class=" border-gray-800/70 my-1 p-0" />
 
 					<Tooltip
 						content={usage?.model_ids && usage?.model_ids.length > 0

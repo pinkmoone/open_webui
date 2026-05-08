@@ -147,6 +147,35 @@ textarea::placeholder {
 	@apply text-xs prose dark:prose-invert prose-blockquote:border-s-gray-100 prose-blockquote:dark:border-gray-800 prose-blockquote:border-s-2 prose-blockquote:not-italic prose-blockquote:font-normal  prose-headings:font-semibold prose-hr:my-0.5  prose-hr:border-gray-50 prose-hr:dark:border-gray-850 prose-p:my-0 prose-img:my-1 prose-headings:my-1 prose-pre:my-0 prose-table:my-0 prose-blockquote:my-0 prose-ul:-my-0 prose-ol:-my-0 prose-li:-my-0 whitespace-pre-line;
 }
 
+.dark .chat-assistant .chat-response-surface,
+.oled-dark .chat-assistant .chat-response-surface {
+	color: #f5f5f5;
+}
+
+.dark .chat-assistant .chat-response-surface :where(table, thead, tbody, tr, th, td),
+.oled-dark .chat-assistant .chat-response-surface :where(table, thead, tbody, tr, th, td) {
+	background-color: #171717 !important;
+	color: #f5f5f5 !important;
+	border-color: #3f3f46 !important;
+}
+
+.dark .chat-assistant .chat-response-surface :where(thead, th),
+.oled-dark .chat-assistant .chat-response-surface :where(thead, th) {
+	background-color: #262626 !important;
+	color: #e5e7eb !important;
+}
+
+.dark .chat-assistant .chat-response-surface :where(tbody tr:nth-child(even), tbody tr:nth-child(even) td),
+.oled-dark .chat-assistant .chat-response-surface :where(tbody tr:nth-child(even), tbody tr:nth-child(even) td) {
+	background-color: #202020 !important;
+}
+
+.dark .chat-assistant .chat-response-surface :where([style*='background'], [bgcolor]),
+.oled-dark .chat-assistant .chat-response-surface :where([style*='background'], [bgcolor]) {
+	background-color: #171717 !important;
+	color: #f5f5f5 !important;
+}
+
 .markdown a {
 	@apply underline;
 }
@@ -871,6 +900,294 @@ html.dark .advanced-params-panel .text-gray-300 {
 
 html.dark .advanced-params-panel input[type='range'] {
 	background-color: var(--color-gray-700, #4f4f4f);
+}
+
+/* Dark button/input hardening 20260508-4 */
+html.dark #sidebar-new-chat-button,
+html.dark #sidebar-search-button,
+html.oled-dark #sidebar-new-chat-button,
+html.oled-dark #sidebar-search-button,
+html.dark .owui-sidebar-action,
+html.oled-dark .owui-sidebar-action {
+	background-color: transparent !important;
+	color: var(--owui-text-primary) !important;
+	border-color: transparent !important;
+}
+
+html.dark #sidebar-new-chat-button:hover,
+html.dark #sidebar-search-button:hover,
+html.oled-dark #sidebar-new-chat-button:hover,
+html.oled-dark #sidebar-search-button:hover,
+html.dark .owui-sidebar-action:hover,
+html.oled-dark .owui-sidebar-action:hover {
+	background-color: var(--owui-surface-raised) !important;
+	color: var(--owui-text-primary) !important;
+}
+
+html.dark .owui-stop-response-button,
+html.oled-dark .owui-stop-response-button,
+html.dark .owui-model-selector,
+html.oled-dark .owui-model-selector {
+	background-color: var(--owui-surface-raised) !important;
+	color: var(--owui-text-primary) !important;
+	border-color: var(--owui-border) !important;
+}
+
+html.dark .owui-stop-response-button:hover,
+html.oled-dark .owui-stop-response-button:hover {
+	background-color: #333333 !important;
+}
+
+html.dark .owui-model-selector :where(.owui-model-search-row, .owui-model-tags),
+html.oled-dark .owui-model-selector :where(.owui-model-search-row, .owui-model-tags) {
+	background-color: transparent !important;
+	color: var(--owui-text-primary) !important;
+}
+
+html.dark #model-search-input,
+html.oled-dark #model-search-input {
+	background-color: transparent !important;
+	color: var(--owui-text-primary) !important;
+	caret-color: var(--owui-text-primary) !important;
+}
+
+html.dark #model-search-input::placeholder,
+html.oled-dark #model-search-input::placeholder {
+	color: var(--owui-text-muted) !important;
+}
+
+html.dark :where(button, a, input, textarea, select)[class*='bg-white']:not([class*='data-[state=unchecked]']):not(.no-toggle),
+html.oled-dark :where(button, a, input, textarea, select)[class*='bg-white']:not([class*='data-[state=unchecked]']):not(.no-toggle),
+html.dark :where(button, a, input, textarea, select)[class*='bg-gray-50']:not(.no-toggle),
+html.oled-dark :where(button, a, input, textarea, select)[class*='bg-gray-50']:not(.no-toggle) {
+	background-color: var(--owui-surface-raised) !important;
+	color: var(--owui-text-primary) !important;
+	border-color: var(--owui-border) !important;
+}
+
+html.dark :where(button, a)[class*='dark:bg-white'],
+html.oled-dark :where(button, a)[class*='dark:bg-white'] {
+	background-color: var(--owui-surface-raised) !important;
+	color: var(--owui-text-primary) !important;
+	border-color: var(--owui-border) !important;
+}
+
+html.dark :where(button, a)[class*='hover:bg-gray-100']:hover,
+html.oled-dark :where(button, a)[class*='hover:bg-gray-100']:hover {
+	background-color: #333333 !important;
+	color: #ffffff !important;
+}
+
+.dark #sidebar-new-chat-button,
+.dark #sidebar-search-button,
+.oled-dark #sidebar-new-chat-button,
+.oled-dark #sidebar-search-button,
+.dark .owui-sidebar-action,
+.oled-dark .owui-sidebar-action {
+	background-color: transparent !important;
+	color: var(--owui-text-primary) !important;
+	border-color: transparent !important;
+}
+
+.dark #sidebar-new-chat-button:hover,
+.dark #sidebar-search-button:hover,
+.oled-dark #sidebar-new-chat-button:hover,
+.oled-dark #sidebar-search-button:hover,
+.dark .owui-sidebar-action:hover,
+.oled-dark .owui-sidebar-action:hover {
+	background-color: var(--owui-surface-raised) !important;
+	color: var(--owui-text-primary) !important;
+}
+
+.dark .owui-stop-response-button,
+.oled-dark .owui-stop-response-button,
+.dark .owui-model-selector,
+.oled-dark .owui-model-selector,
+body:has(.dark) .owui-model-selector,
+body:has(.oled-dark) .owui-model-selector {
+	background-color: var(--owui-surface-raised) !important;
+	color: var(--owui-text-primary) !important;
+	border-color: var(--owui-border) !important;
+}
+
+.dark .owui-stop-response-button:hover,
+.oled-dark .owui-stop-response-button:hover,
+body:has(.dark) .owui-stop-response-button:hover,
+body:has(.oled-dark) .owui-stop-response-button:hover {
+	background-color: #333333 !important;
+}
+
+.dark .owui-model-selector :where(.owui-model-search-row, .owui-model-tags),
+.oled-dark .owui-model-selector :where(.owui-model-search-row, .owui-model-tags),
+body:has(.dark) .owui-model-selector :where(.owui-model-search-row, .owui-model-tags),
+body:has(.oled-dark) .owui-model-selector :where(.owui-model-search-row, .owui-model-tags) {
+	background-color: transparent !important;
+	color: var(--owui-text-primary) !important;
+}
+
+.dark #model-search-input,
+.oled-dark #model-search-input,
+body:has(.dark) #model-search-input,
+body:has(.oled-dark) #model-search-input {
+	background-color: transparent !important;
+	color: var(--owui-text-primary) !important;
+	caret-color: var(--owui-text-primary) !important;
+}
+
+.dark #model-search-input::placeholder,
+.oled-dark #model-search-input::placeholder,
+body:has(.dark) #model-search-input::placeholder,
+body:has(.oled-dark) #model-search-input::placeholder {
+	color: var(--owui-text-muted) !important;
+}
+
+.dark :where(button, a, input, textarea, select)[class*='bg-white']:not([class*='data-[state=unchecked]']):not(.no-toggle),
+.oled-dark :where(button, a, input, textarea, select)[class*='bg-white']:not([class*='data-[state=unchecked]']):not(.no-toggle),
+.dark :where(button, a, input, textarea, select)[class*='bg-gray-50']:not(.no-toggle),
+.oled-dark :where(button, a, input, textarea, select)[class*='bg-gray-50']:not(.no-toggle),
+body:has(.dark) :where(button, a, input, textarea, select)[class*='bg-white']:not([class*='data-[state=unchecked]']):not(.no-toggle),
+body:has(.oled-dark) :where(button, a, input, textarea, select)[class*='bg-white']:not([class*='data-[state=unchecked]']):not(.no-toggle),
+body:has(.dark) :where(button, a, input, textarea, select)[class*='bg-gray-50']:not(.no-toggle),
+body:has(.oled-dark) :where(button, a, input, textarea, select)[class*='bg-gray-50']:not(.no-toggle) {
+	background-color: var(--owui-surface-raised) !important;
+	color: var(--owui-text-primary) !important;
+	border-color: var(--owui-border) !important;
+}
+
+.dark :where(button, a)[class*='dark:bg-white'],
+.oled-dark :where(button, a)[class*='dark:bg-white'],
+body:has(.dark) :where(button, a)[class*='dark:bg-white'],
+body:has(.oled-dark) :where(button, a)[class*='dark:bg-white'] {
+	background-color: var(--owui-surface-raised) !important;
+	color: var(--owui-text-primary) !important;
+	border-color: var(--owui-border) !important;
+}
+
+.dark :where(button, a)[class*='hover:bg-gray-100']:hover,
+.oled-dark :where(button, a)[class*='hover:bg-gray-100']:hover,
+body:has(.dark) :where(button, a)[class*='hover:bg-gray-100']:hover,
+body:has(.oled-dark) :where(button, a)[class*='hover:bg-gray-100']:hover {
+	background-color: #333333 !important;
+	color: #ffffff !important;
+}
+
+/* Dark code block title hardening 20260508-5 */
+html.dark .chat-assistant .owui-code-block,
+html.oled-dark .chat-assistant .owui-code-block,
+.dark .chat-assistant .owui-code-block,
+.oled-dark .chat-assistant .owui-code-block,
+body:has(.dark) .chat-assistant .owui-code-block,
+body:has(.oled-dark) .chat-assistant .owui-code-block {
+	background-color: #050505 !important;
+	color: var(--owui-text-primary) !important;
+	border-color: var(--owui-border) !important;
+}
+
+html.dark .chat-assistant .owui-code-block :where(.owui-code-block-header, .owui-code-block-button, .owui-code-block-spacer, .owui-code-block-collapsed),
+html.oled-dark .chat-assistant .owui-code-block :where(.owui-code-block-header, .owui-code-block-button, .owui-code-block-spacer, .owui-code-block-collapsed),
+.dark .chat-assistant .owui-code-block :where(.owui-code-block-header, .owui-code-block-button, .owui-code-block-spacer, .owui-code-block-collapsed),
+.oled-dark .chat-assistant .owui-code-block :where(.owui-code-block-header, .owui-code-block-button, .owui-code-block-spacer, .owui-code-block-collapsed),
+body:has(.dark) .chat-assistant .owui-code-block :where(.owui-code-block-header, .owui-code-block-button, .owui-code-block-spacer, .owui-code-block-collapsed),
+body:has(.oled-dark) .chat-assistant .owui-code-block :where(.owui-code-block-header, .owui-code-block-button, .owui-code-block-spacer, .owui-code-block-collapsed) {
+	background-color: #050505 !important;
+	color: var(--owui-text-primary) !important;
+	border-color: var(--owui-border) !important;
+}
+
+html.dark .chat-assistant .owui-code-block :where(.hljs, pre, code),
+html.oled-dark .chat-assistant .owui-code-block :where(.hljs, pre, code),
+.dark .chat-assistant .owui-code-block :where(.hljs, pre, code),
+.oled-dark .chat-assistant .owui-code-block :where(.hljs, pre, code),
+body:has(.dark) .chat-assistant .owui-code-block :where(.hljs, pre, code),
+body:has(.oled-dark) .chat-assistant .owui-code-block :where(.hljs, pre, code) {
+	background-color: #050505 !important;
+	color: var(--owui-text-primary) !important;
+}
+
+html.dark .chat-assistant .owui-code-block .hljs *,
+html.oled-dark .chat-assistant .owui-code-block .hljs *,
+.dark .chat-assistant .owui-code-block .hljs *,
+.oled-dark .chat-assistant .owui-code-block .hljs *,
+body:has(.dark) .chat-assistant .owui-code-block .hljs *,
+body:has(.oled-dark) .chat-assistant .owui-code-block .hljs * {
+	background-color: transparent !important;
+}
+
+/* Dark notes/workspace hardening 20260508-7 */
+html.dark :where(#notes-container, #workspace-container, #collection-container),
+html.oled-dark :where(#notes-container, #workspace-container, #collection-container),
+body:has(.dark) :where(#notes-container, #workspace-container, #collection-container),
+body:has(.oled-dark) :where(#notes-container, #workspace-container, #collection-container) {
+	background-color: var(--owui-bg) !important;
+	color: var(--owui-text-primary) !important;
+}
+
+html.dark :where(#notes-container, #workspace-container, #collection-container)
+	:where([class*='bg-white'], [class*='bg-gray-50'], [class*='bg-gray-100']),
+html.oled-dark :where(#notes-container, #workspace-container, #collection-container)
+	:where([class*='bg-white'], [class*='bg-gray-50'], [class*='bg-gray-100']),
+body:has(.dark) :where(#notes-container, #workspace-container, #collection-container)
+	:where([class*='bg-white'], [class*='bg-gray-50'], [class*='bg-gray-100']),
+body:has(.oled-dark) :where(#notes-container, #workspace-container, #collection-container)
+	:where([class*='bg-white'], [class*='bg-gray-50'], [class*='bg-gray-100']) {
+	background-color: var(--owui-surface-raised) !important;
+	color: var(--owui-text-primary) !important;
+	border-color: var(--owui-border) !important;
+}
+
+html.dark :where(#notes-container, #workspace-container, #collection-container)
+	:where(input, textarea, select),
+html.oled-dark :where(#notes-container, #workspace-container, #collection-container)
+	:where(input, textarea, select),
+body:has(.dark) :where(#notes-container, #workspace-container, #collection-container)
+	:where(input, textarea, select),
+body:has(.oled-dark) :where(#notes-container, #workspace-container, #collection-container)
+	:where(input, textarea, select) {
+	background-color: transparent !important;
+	color: var(--owui-text-primary) !important;
+	caret-color: var(--owui-text-primary) !important;
+}
+
+html.dark :where(#notes-container, #workspace-container, #collection-container)
+	:where(input, textarea)::placeholder,
+html.oled-dark :where(#notes-container, #workspace-container, #collection-container)
+	:where(input, textarea)::placeholder,
+body:has(.dark) :where(#notes-container, #workspace-container, #collection-container)
+	:where(input, textarea)::placeholder,
+body:has(.oled-dark) :where(#notes-container, #workspace-container, #collection-container)
+	:where(input, textarea)::placeholder {
+	color: var(--owui-text-muted) !important;
+}
+
+html.dark :where(#notes-container, #workspace-container, #collection-container)
+	:where([class*='border-gray-50'], [class*='border-gray-100']),
+html.oled-dark :where(#notes-container, #workspace-container, #collection-container)
+	:where([class*='border-gray-50'], [class*='border-gray-100']),
+body:has(.dark) :where(#notes-container, #workspace-container, #collection-container)
+	:where([class*='border-gray-50'], [class*='border-gray-100']),
+body:has(.oled-dark) :where(#notes-container, #workspace-container, #collection-container)
+	:where([class*='border-gray-50'], [class*='border-gray-100']) {
+	border-color: var(--owui-border) !important;
+}
+
+html.dark :where(#notes-container, #workspace-container, #collection-container)
+	:where([class*='hover:bg-white'], [class*='hover:bg-gray-50'], [class*='hover:bg-gray-100']):hover,
+html.oled-dark :where(#notes-container, #workspace-container, #collection-container)
+	:where([class*='hover:bg-white'], [class*='hover:bg-gray-50'], [class*='hover:bg-gray-100']):hover,
+body:has(.dark) :where(#notes-container, #workspace-container, #collection-container)
+	:where([class*='hover:bg-white'], [class*='hover:bg-gray-50'], [class*='hover:bg-gray-100']):hover,
+body:has(.oled-dark) :where(#notes-container, #workspace-container, #collection-container)
+	:where([class*='hover:bg-white'], [class*='hover:bg-gray-50'], [class*='hover:bg-gray-100']):hover {
+	background-color: #333333 !important;
+	color: #ffffff !important;
+}
+
+html.dark #workspace-container nav,
+html.oled-dark #workspace-container nav,
+body:has(.dark) #workspace-container nav,
+body:has(.oled-dark) #workspace-container nav {
+	background-color: transparent !important;
+	color: var(--owui-text-primary) !important;
 }
 
 /* Position the handle relative to each LI */

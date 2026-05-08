@@ -188,6 +188,40 @@
 	let speakAbort: AbortController | null = null;
 
 	let showRateComment = false;
+	let responseCollapsed = false;
+	let lastLoadedCollapseStorageKey = '';
+
+	$: responseCollapseStorageKey = `open-webui:response-collapsed:${chatId || 'chat'}:${message?.id || 'message'}`;
+
+	const loadResponseCollapseState = () => {
+		if (typeof localStorage === 'undefined' || !message?.id) return;
+		responseCollapsed = localStorage.getItem(responseCollapseStorageKey) === 'true';
+	};
+
+	$: if (message?.id && responseCollapseStorageKey) {
+		if (lastLoadedCollapseStorageKey !== responseCollapseStorageKey) {
+			loadResponseCollapseState();
+			lastLoadedCollapseStorageKey = responseCollapseStorageKey;
+		}
+	}
+
+	const setResponseCollapsed = (collapsed: boolean) => {
+		responseCollapsed = collapsed;
+		if (typeof localStorage !== 'undefined') {
+			localStorage.setItem(responseCollapseStorageKey, responseCollapsed ? 'true' : 'false');
+		}
+	};
+
+	const toggleResponseCollapsed = () => {
+		setResponseCollapsed(!responseCollapsed);
+	};
+
+	const handleMessageCollapseAll = (event: Event) => {
+		const collapsed = (event as CustomEvent)?.detail?.collapsed;
+		if (typeof collapsed === 'boolean' && message?.id) {
+			setResponseCollapsed(collapsed);
+		}
+	};
 
 	const copyToClipboard = async (text) => {
 		text = removeAllDetails(text);
@@ -617,9 +651,11 @@
 	}}
 />
 
+<svelte:window on:open-webui-message-collapse-all={handleMessageCollapseAll} />
+
 {#key message.id}
 	<div
-		class=" flex w-full message-{message.id}"
+		class=" flex w-full message-{message.id} group"
 		id="message-{message.id}"
 		dir={$settings.chatDirection}
 		style="scroll-margin-top: 3rem;"
@@ -655,6 +691,33 @@
 							>
 						</Tooltip>
 					</div>
+				{/if}
+
+				{#if !edit && (message.content || message?.error)}
+					<Tooltip
+						content={responseCollapsed ? $i18n.t('Expand response') : $i18n.t('Collapse response')}
+						placement="top"
+					>
+						<button
+							type="button"
+							aria-label={responseCollapsed ? $i18n.t('Expand response') : $i18n.t('Collapse response')}
+							aria-expanded={!responseCollapsed}
+							class="self-center ml-1 p-1 rounded-md text-gray-400 hover:text-gray-700 hover:bg-black/5 dark:text-gray-500 dark:hover:text-gray-100 dark:hover:bg-white/5 transition"
+							on:click={toggleResponseCollapsed}
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="2.3"
+								stroke="currentColor"
+								class="size-3.5 transition-transform {responseCollapsed ? '-rotate-90' : ''}"
+								aria-hidden="true"
+							>
+								<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+							</svg>
+						</button>
+					</Tooltip>
 				{/if}
 			</Name>
 
@@ -778,7 +841,9 @@
 
 						<div
 							bind:this={contentContainerElement}
-							class="w-full flex flex-col relative {edit ? 'hidden' : ''}"
+							class="w-full flex flex-col relative chat-response-surface {edit ? 'hidden' : ''} {responseCollapsed
+								? 'hidden'
+								: ''}"
 							id="response-content-container"
 						>
 							{#if message.content === '' && !message.done && !message.error && !hasVisibleStatus}
@@ -842,6 +907,7 @@
 								<CodeExecutions codeExecutions={message.code_executions} />
 							{/if}
 						</div>
+
 					</div>
 				</div>
 
@@ -949,6 +1015,39 @@
 							{/if}
 
 							{#if message.done}
+								{#if message.content || message?.error}
+									<Tooltip
+										content={responseCollapsed ? $i18n.t('Expand response') : $i18n.t('Collapse response')}
+										placement="bottom"
+									>
+										<button
+											type="button"
+											aria-label={responseCollapsed ? $i18n.t('Expand response') : $i18n.t('Collapse response')}
+											aria-expanded={!responseCollapsed}
+											class="{isLastMessage || ($settings?.highContrastMode ?? false)
+												? 'visible'
+												: 'invisible group-hover:visible'} p-1.5 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg dark:hover:text-white hover:text-black transition"
+											on:click={toggleResponseCollapsed}
+										>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												fill="none"
+												viewBox="0 0 24 24"
+												stroke-width="2.3"
+												stroke="currentColor"
+												class="w-4 h-4 transition-transform {responseCollapsed ? '-rotate-90' : ''}"
+												aria-hidden="true"
+											>
+												<path
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													d="m19.5 8.25-7.5 7.5-7.5-7.5"
+												/>
+											</svg>
+										</button>
+									</Tooltip>
+								{/if}
+
 								{#if !readOnly}
 									{#if $user?.role === 'user' ? ($user?.permissions?.chat?.edit ?? true) : true}
 										<Tooltip content={$i18n.t('Edit')} placement="bottom">

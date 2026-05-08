@@ -278,7 +278,7 @@
 		<Drawer
 			show={$showControls}
 			onClose={() => showControls.set(false)}
-			className="min-h-[100dvh] !bg-white dark:!bg-gray-850 text-gray-900 dark:text-gray-100"
+			className="min-h-[100dvh] !bg-gray-850 text-gray-100"
 		>
 			<div class="h-[100dvh] flex flex-col">
 				{#if $showCallOverlay}
@@ -416,14 +416,14 @@
 			if (paneReady) showControls.set(false);
 		}}
 		collapsible={true}
-		class="z-10 bg-white dark:bg-gray-850 text-gray-900 dark:text-gray-100"
+		class="z-10 bg-gray-850 text-gray-100"
 	>
 		{#if $showControls}
 			<div class="flex max-h-full min-h-full">
 				<div
 					class="w-full {specialPanel && !$showCallOverlay
 						? ' '
-						: 'bg-white dark:shadow-lg dark:bg-gray-850 text-gray-900 dark:text-gray-100'} z-40 pointer-events-auto {activeTab ===
+						: 'bg-gray-850 shadow-lg text-gray-100'} z-40 pointer-events-auto {activeTab ===
 					'files'
 						? ''
 						: 'overflow-y-auto'} scrollbar-hidden"

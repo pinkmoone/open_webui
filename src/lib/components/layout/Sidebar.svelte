@@ -1065,7 +1065,7 @@
 					<div class="px-[0.4375rem] flex justify-center text-gray-800 dark:text-gray-200">
 						<a
 							id="sidebar-new-chat-button"
-							class="group grow flex items-center space-x-3 rounded-2xl px-2.5 py-2 hover:bg-gray-100 dark:hover:bg-gray-900 transition outline-none"
+							class="owui-sidebar-action group grow flex items-center space-x-3 rounded-2xl px-2.5 py-2 bg-transparent text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-900 transition outline-none"
 							href="/"
 							draggable="false"
 							on:click={newChatHandler}
@@ -1086,7 +1086,7 @@
 					<div class="px-[0.4375rem] flex justify-center text-gray-800 dark:text-gray-200">
 						<button
 							id="sidebar-search-button"
-							class="group grow flex items-center space-x-3 rounded-2xl px-2.5 py-2 hover:bg-gray-100 dark:hover:bg-gray-900 transition outline-none"
+							class="owui-sidebar-action group grow flex items-center space-x-3 rounded-2xl px-2.5 py-2 bg-transparent text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-900 transition outline-none"
 							on:click={() => {
 								showSearch.set(true);
 							}}
