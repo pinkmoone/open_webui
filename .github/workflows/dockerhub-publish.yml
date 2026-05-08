@@ -45,12 +45,12 @@ jobs:
           tags: ${{ env.IMAGE_NAME }}:${{ inputs.tag }}
           build-args: |
             USE_SLIM=true
-            APK_REPOSITORY_MIRROR=https://mirrors.aliyun.com/alpine
-            DEBIAN_MIRROR=https://mirrors.aliyun.com/debian
-            DEBIAN_SECURITY_MIRROR=https://mirrors.aliyun.com/debian-security
-            NPM_REGISTRY=https://registry.npmmirror.com
-            PIP_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple/
-            UV_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple/
-            TORCH_CPU_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple/
-            PYODIDE_PYPI_JSON_BASE_URL=https://pypi.tuna.tsinghua.edu.cn/pypi
-            PYODIDE_PYPI_FILE_BASE_URL=https://pypi.tuna.tsinghua.edu.cn
+            APK_REPOSITORY_MIRROR=
+            DEBIAN_MIRROR=
+            DEBIAN_SECURITY_MIRROR=
+            NPM_REGISTRY=https://registry.npmjs.org
+            PIP_INDEX_URL=https://pypi.org/simple/
+            UV_INDEX_URL=https://pypi.org/simple/
+            TORCH_CPU_INDEX_URL=https://download.pytorch.org/whl/cpu
+            PYODIDE_PYPI_JSON_BASE_URL=https://pypi.org/pypi
+            PYODIDE_PYPI_FILE_BASE_URL=https://files.pythonhosted.org
