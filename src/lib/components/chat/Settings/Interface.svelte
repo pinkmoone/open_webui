@@ -88,7 +88,7 @@
 
 	// Admin - Show Update Available Toast
 	let showUpdateToast = true;
-	let showChangelog = true;
+	let showChangelog = false;
 
 	let showEmojiInCall = false;
 	let voiceInterruption = false;
@@ -208,7 +208,7 @@
 
 		showUsername = $settings?.showUsername ?? false;
 		showUpdateToast = $settings?.showUpdateToast ?? true;
-		showChangelog = $settings?.showChangelog ?? true;
+		showChangelog = $settings?.showChangelog ?? false;
 
 		showEmojiInCall = $settings?.showEmojiInCall ?? false;
 		voiceInterruption = $settings?.voiceInterruption ?? false;

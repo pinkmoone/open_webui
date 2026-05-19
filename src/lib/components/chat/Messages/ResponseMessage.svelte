@@ -68,7 +68,13 @@
 		id: string;
 		model: string;
 		content: string;
-		files?: { type: string; url: string }[];
+		files?: {
+			type: string;
+			url: string;
+			content_type?: string;
+			name?: string;
+			size?: number;
+		}[];
 		timestamp: number;
 		role: string;
 		statusHistory?: {
@@ -87,7 +93,10 @@
 		};
 		done: boolean;
 		error?: boolean | { content: string };
-		sources?: string[];
+		sources?: any[];
+		citations?: any[];
+		embeds?: string[];
+		followUps?: string[];
 		code_executions?: {
 			uuid: string;
 			name: string;
@@ -174,6 +183,71 @@
 		(model?.info?.meta?.capabilities?.status_updates ?? true) &&
 		statusEntries.length > 0 &&
 		!(statusEntries.at(-1)?.hidden ?? false);
+
+	const isImageFile = (file: any) =>
+		file?.type === 'image' || (file?.content_type ?? '').startsWith('image/');
+
+	const getCollectionCount = (value: any) => {
+		if (Array.isArray(value)) return value.length;
+		if (value && typeof value === 'object') return Object.keys(value).length;
+		return 0;
+	};
+
+	const buildResponseCollapseSummary = ({
+		imageCount,
+		fileCount,
+		embedCount,
+		citationCount,
+		executionCount,
+		statusCount,
+		followUpCount
+	}: {
+		imageCount: number;
+		fileCount: number;
+		embedCount: number;
+		citationCount: number;
+		executionCount: number;
+		statusCount: number;
+		followUpCount: number;
+	}) => {
+		const parts = ['回复已折叠'];
+		if (imageCount > 0) parts.push(`${imageCount} 张图片`);
+		if (fileCount > 0) parts.push(`${fileCount} 个文件`);
+		if (embedCount > 0) parts.push(`${embedCount} 个嵌入`);
+		if (citationCount > 0) parts.push(`${citationCount} 条引用`);
+		if (executionCount > 0) parts.push(`${executionCount} 个执行结果`);
+		if (statusCount > 0) parts.push(`${statusCount} 条状态`);
+		if (followUpCount > 0) parts.push(`${followUpCount} 条追问建议`);
+		return parts.join(' · ');
+	};
+
+	$: responseFiles = message?.files ?? [];
+	$: responseImageCount = responseFiles.filter(isImageFile).length;
+	$: responseFileCount = responseFiles.length - responseImageCount;
+	$: responseEmbedCount = (message?.embeds ?? []).length;
+	$: responseCitationCount = getCollectionCount(message?.sources ?? message?.citations);
+	$: responseExecutionCount = (message?.code_executions ?? []).length;
+	$: responseStatusCount = hasVisibleStatus ? statusEntries.length : 0;
+	$: responseFollowUpCount = (message?.followUps ?? []).length;
+	$: responseHasCollapsibleContent =
+		hasVisibleStatus ||
+		responseFiles.length > 0 ||
+		responseEmbedCount > 0 ||
+		responseCitationCount > 0 ||
+		responseExecutionCount > 0 ||
+		responseFollowUpCount > 0 ||
+		(message?.content ?? '') !== '' ||
+		!!message?.error ||
+		(!message?.done && !message?.error);
+	$: responseCollapseSummary = buildResponseCollapseSummary({
+		imageCount: responseImageCount,
+		fileCount: responseFileCount,
+		embedCount: responseEmbedCount,
+		citationCount: responseCitationCount,
+		executionCount: responseExecutionCount,
+		statusCount: responseStatusCount,
+		followUpCount: responseFollowUpCount
+	});
 
 	let edit = false;
 	let editedContent = '';
@@ -693,14 +767,14 @@
 					</div>
 				{/if}
 
-				{#if !edit && (message.content || message?.error)}
+				{#if !edit && responseHasCollapsibleContent}
 					<Tooltip
-						content={responseCollapsed ? $i18n.t('Expand response') : $i18n.t('Collapse response')}
+						content={responseCollapsed ? '展开回复' : '折叠回复'}
 						placement="top"
 					>
 						<button
 							type="button"
-							aria-label={responseCollapsed ? $i18n.t('Expand response') : $i18n.t('Collapse response')}
+							aria-label={responseCollapsed ? '展开回复' : '折叠回复'}
 							aria-expanded={!responseCollapsed}
 							class="self-center ml-1 p-1 rounded-md text-gray-400 hover:text-gray-700 hover:bg-black/5 dark:text-gray-500 dark:hover:text-gray-100 dark:hover:bg-white/5 transition"
 							on:click={toggleResponseCollapsed}
@@ -724,18 +798,18 @@
 			<div>
 				<div class="chat-{message.role} w-full min-w-full markdown-prose">
 					<div>
-						{#if model?.info?.meta?.capabilities?.status_updates ?? true}
+						{#if (model?.info?.meta?.capabilities?.status_updates ?? true) && (!responseCollapsed || edit)}
 							<StatusHistory statusHistory={message?.statusHistory} />
 						{/if}
 
-						{#if message?.files && message.files?.filter((f) => f.type === 'image').length > 0}
+						{#if responseFiles.length > 0 && (!responseCollapsed || edit)}
 							<div
 								class="my-1 w-full flex overflow-x-auto gap-2 flex-wrap"
 								dir={$settings?.chatDirection ?? 'auto'}
 							>
-								{#each message.files as file}
+								{#each responseFiles as file}
 									<div>
-										{#if file.type === 'image' || (file?.content_type ?? '').startsWith('image/')}
+										{#if isImageFile(file)}
 											<Image src={file.url} alt={message.content} />
 										{:else}
 											<FileItem
@@ -752,7 +826,7 @@
 							</div>
 						{/if}
 
-						{#if message?.embeds && message.embeds.length > 0}
+						{#if message?.embeds && message.embeds.length > 0 && (!responseCollapsed || edit)}
 							<div
 								class="my-1 w-full flex overflow-x-auto gap-2 flex-wrap"
 								id={`${message.id}-embeds-container`}
@@ -769,6 +843,29 @@
 									</div>
 								{/each}
 							</div>
+						{/if}
+
+						{#if responseCollapsed && !edit}
+							<button
+								type="button"
+								aria-label="展开回复"
+								aria-expanded="false"
+								class="my-1 inline-flex max-w-full items-center gap-1.5 rounded-2xl border owui-border owui-surface-raised px-3 py-1.5 text-sm text-gray-700 dark:text-gray-200 transition hover:bg-gray-100 dark:hover:bg-gray-800"
+								on:click={toggleResponseCollapsed}
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke-width="2.2"
+									stroke="currentColor"
+									class="size-3.5"
+									aria-hidden="true"
+								>
+									<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+								</svg>
+								<span class="truncate">{responseCollapseSummary}</span>
+							</button>
 						{/if}
 
 						{#if edit === true}
@@ -1015,14 +1112,14 @@
 							{/if}
 
 							{#if message.done}
-								{#if message.content || message?.error}
+								{#if responseHasCollapsibleContent}
 									<Tooltip
-										content={responseCollapsed ? $i18n.t('Expand response') : $i18n.t('Collapse response')}
+										content={responseCollapsed ? '展开回复' : '折叠回复'}
 										placement="bottom"
 									>
 										<button
 											type="button"
-											aria-label={responseCollapsed ? $i18n.t('Expand response') : $i18n.t('Collapse response')}
+											aria-label={responseCollapsed ? '展开回复' : '折叠回复'}
 											aria-expanded={!responseCollapsed}
 											class="{isLastMessage || ($settings?.highContrastMode ?? false)
 												? 'visible'
@@ -1552,7 +1649,7 @@
 						/>
 					{/if}
 
-					{#if (isLastMessage || ($settings?.keepFollowUpPrompts ?? false)) && message.done && !readOnly && (message?.followUps ?? []).length > 0}
+					{#if (isLastMessage || ($settings?.keepFollowUpPrompts ?? false)) && message.done && !readOnly && (message?.followUps ?? []).length > 0 && !responseCollapsed}
 						<div class="mt-2.5" in:fade={{ duration: 100 }}>
 							<FollowUps
 								followUps={message?.followUps}

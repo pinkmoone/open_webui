@@ -9,23 +9,26 @@ services:
     volumes:
       - ${OPEN_WEBUI_DATA_DIR:-open-webui}:/app/backend/data
     environment:
-      # If Ollama is started by this compose file, keep this value.
-      # If Ollama runs on the Docker host, use: http://host.docker.internal:11434
-      # If Ollama runs on another machine, use: http://SERVER_IP:11434
+      # 如果 Ollama 由这个 compose 文件启动，保持这个值。
+      # 如果 Ollama 运行在 Docker 宿主机上，使用：http://host.docker.internal:11434
+      # 如果 Ollama 运行在另一台机器上，使用：http://服务器IP:11434
       OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://ollama:11434}
 
-      # Optional OpenAI or OpenAI-compatible API.
+      # 可选的 OpenAI 或兼容 OpenAI 的 API。
       OPENAI_API_BASE_URL: ${OPENAI_API_BASE_URL:-}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
 
-      # Set a stable random value before first production use.
+      # 生产环境首次使用前，请设置一个固定的随机值。
       WEBUI_SECRET_KEY: ${WEBUI_SECRET_KEY:-}
 
-      # Optional opening-screen verification code. Empty disables it.
+      # 可选的打开页面验证码，留空则禁用。
       WEBUI_OPENING_CODE: ${WEBUI_OPENING_CODE:-}
       WEBUI_OPENING_CODE_EXPIRES_MINUTES: ${WEBUI_OPENING_CODE_EXPIRES_MINUTES:-10}
 
-      # Privacy / telemetry switches.
+      # 禁用 GitHub 版本检测和更新提示，如需开启请设为 true。
+      ENABLE_VERSION_UPDATE_CHECK: ${ENABLE_VERSION_UPDATE_CHECK:-false}
+
+      # 隐私和遥测开关。
       SCARF_NO_ANALYTICS: ${SCARF_NO_ANALYTICS:-true}
       DO_NOT_TRACK: ${DO_NOT_TRACK:-true}
       ANONYMIZED_TELEMETRY: ${ANONYMIZED_TELEMETRY:-false}

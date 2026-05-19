@@ -478,7 +478,7 @@
 						</div>
 
 						<div>
-							{collapsed ? $i18n.t('Expand') : $i18n.t('Collapse')}
+							{collapsed ? '展开' : '折叠'}
 						</div>
 					</button>
 
@@ -572,9 +572,7 @@
 						class="owui-code-block-collapsed bg-white dark:bg-black dark:text-white rounded-b-2xl! pt-1 pb-2 px-4 flex flex-col gap-2 text-xs"
 					>
 						<span class="text-gray-500 italic">
-							{$i18n.t('{{COUNT}} hidden lines', {
-								COUNT: code.split('\n').length
-							})}
+							已隐藏 {code.split('\n').length} 行代码
 						</span>
 					</div>
 				{/if}

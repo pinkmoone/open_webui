@@ -107,6 +107,31 @@
 		}
 	};
 
+	const isImageFile = (file: any) =>
+		file?.type === 'image' || (file?.content_type ?? '').startsWith('image/');
+
+	const getMessageFileUrl = (file: any) =>
+		file?.url?.startsWith('data') || file?.url?.startsWith('http')
+			? file.url
+			: `${WEBUI_API_BASE_URL}/files/${file.url}${file?.content_type ? '/content' : ''}`;
+
+	const buildUserMessageCollapseSummary = (imageCount: number, fileCount: number) => {
+		const parts = ['消息已折叠'];
+		if (imageCount > 0) parts.push(`${imageCount} 张图片`);
+		if (fileCount > 0) parts.push(`${fileCount} 个文件`);
+		return parts.join(' · ');
+	};
+
+	$: userMessageFiles = message?.files ?? [];
+	$: userMessageImageCount = userMessageFiles.filter(isImageFile).length;
+	$: userMessageFileCount = userMessageFiles.length - userMessageImageCount;
+	$: userMessageHasCollapsibleContent =
+		(message?.content ?? '') !== '' || userMessageFiles.length > 0;
+	$: userMessageCollapseSummary = buildUserMessageCollapseSummary(
+		userMessageImageCount,
+		userMessageFileCount
+	);
+
 	const editMessageHandler = async () => {
 		edit = true;
 		editedContent = message?.content ?? '';
@@ -237,36 +262,6 @@
 		{/if}
 
 		<div class="chat-{message.role} w-full min-w-full markdown-prose">
-			{#if edit !== true}
-				{#if message.files}
-					<div
-						class="mb-1 w-full flex flex-col justify-end overflow-x-auto gap-1 flex-wrap"
-						dir={$settings?.chatDirection ?? 'auto'}
-					>
-						{#each message.files as file}
-							{@const fileUrl =
-								file.url?.startsWith('data') || file.url?.startsWith('http')
-									? file.url
-									: `${WEBUI_API_BASE_URL}/files/${file.url}${file?.content_type ? '/content' : ''}`}
-							<div class={($settings?.chatBubble ?? true) ? 'self-end' : ''}>
-								{#if file.type === 'image' || (file?.content_type ?? '').startsWith('image/')}
-									<Image src={fileUrl} imageClassName=" max-h-96 rounded-lg" />
-								{:else}
-									<FileItem
-										item={file}
-										url={file.url}
-										name={file.name}
-										type={file.type}
-										size={file?.size}
-										small={true}
-									/>
-								{/if}
-							</div>
-						{/each}
-					</div>
-				{/if}
-			{/if}
-
 			{#if edit === true}
 				<div class=" w-full bg-gray-50 dark:bg-gray-800 rounded-3xl px-5 py-3 mb-2">
 					{#if (editedFiles ?? []).length > 0}
@@ -402,7 +397,7 @@
 						</div>
 					</div>
 				</div>
-			{:else if message.content !== ''}
+			{:else if userMessageHasCollapsibleContent}
 				<div class="w-full">
 					<div class="flex {($settings?.chatBubble ?? true) ? 'justify-end pb-1' : 'w-full'}">
 						<div
@@ -414,6 +409,33 @@
 									}`
 								: ' w-full'}"
 						>
+							{#if userMessageFiles.length > 0}
+								<div
+									class="w-full flex flex-col justify-end overflow-x-auto gap-1 flex-wrap {message.content
+										? 'mb-2'
+										: ''}"
+									dir={$settings?.chatDirection ?? 'auto'}
+								>
+									{#each userMessageFiles as file}
+										{@const fileUrl = getMessageFileUrl(file)}
+										<div class={($settings?.chatBubble ?? true) ? 'self-end' : ''}>
+											{#if isImageFile(file)}
+												<Image src={fileUrl} imageClassName=" max-h-96 rounded-lg" />
+											{:else}
+												<FileItem
+													item={file}
+													url={file.url}
+													name={file.name}
+													type={file.type}
+													size={file?.size}
+													small={true}
+												/>
+											{/if}
+										</div>
+									{/each}
+								</div>
+							{/if}
+
 							{#if message.content}
 								<Markdown
 									id={`${chatId}-${message.id}`}
@@ -426,6 +448,8 @@
 						{#if userMessageCollapsed}
 							<button
 								type="button"
+								aria-label="展开消息"
+								aria-expanded="false"
 								class="inline-flex max-w-[90%] items-center gap-1.5 rounded-3xl border owui-border owui-chat-bubble px-3 py-1.5 text-sm text-gray-700 dark:text-gray-200 transition hover:bg-gray-100 dark:hover:bg-gray-800"
 								on:click={toggleUserMessageCollapsed}
 							>
@@ -440,7 +464,7 @@
 								>
 									<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
 								</svg>
-								{$i18n.t('Message collapsed')}
+								{userMessageCollapseSummary}
 							</button>
 						{/if}
 					</div>
@@ -575,14 +599,14 @@
 						</Tooltip>
 					{/if}
 
-					{#if message?.content}
+					{#if userMessageHasCollapsibleContent}
 						<Tooltip
-							content={userMessageCollapsed ? $i18n.t('Expand message') : $i18n.t('Collapse message')}
+							content={userMessageCollapsed ? '展开消息' : '折叠消息'}
 							placement="bottom"
 						>
 							<button
 								type="button"
-								aria-label={userMessageCollapsed ? $i18n.t('Expand message') : $i18n.t('Collapse message')}
+								aria-label={userMessageCollapsed ? '展开消息' : '折叠消息'}
 								aria-expanded={!userMessageCollapsed}
 								class="{($settings?.highContrastMode ?? false)
 									? ''
@@ -602,7 +626,9 @@
 								</svg>
 							</button>
 						</Tooltip>
+					{/if}
 
+					{#if message?.content}
 						<Tooltip content={$i18n.t('Copy')} placement="bottom">
 							<button
 								class="{($settings?.highContrastMode ?? false)

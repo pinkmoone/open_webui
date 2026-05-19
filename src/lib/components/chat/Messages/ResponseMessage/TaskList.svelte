@@ -36,7 +36,7 @@
 			<button
 				class="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
 				on:click={() => (collapsed = !collapsed)}
-				aria-label={collapsed ? 'Expand' : 'Collapse'}
+				aria-label={collapsed ? '展开任务列表' : '折叠任务列表'}
 			>
 				{#if collapsed}
 					<ChevronUp className="w-2.5 h-2.5" />

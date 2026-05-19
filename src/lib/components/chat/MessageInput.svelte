@@ -2115,9 +2115,10 @@
 							class="flex items-center justify-end gap-1 px-2 pb-1 text-xs text-gray-500 dark:text-gray-400"
 							dir="ltr"
 						>
-							<Tooltip content={$i18n.t('Collapse all messages')} placement="top">
+							<Tooltip content="折叠全部消息" placement="top">
 								<button
 									type="button"
+									aria-label="折叠全部消息"
 									class="owui-collapse-all-button inline-flex items-center gap-1 rounded-full border border-gray-200 bg-gray-50 px-2.5 py-1 font-medium text-gray-600 hover:bg-gray-100 dark:border-gray-800 dark:bg-gray-850 dark:text-gray-300 dark:hover:bg-gray-800 transition"
 									on:click={() => setAllMessagesCollapsed(true)}
 								>
@@ -2132,13 +2133,14 @@
 									>
 										<path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
 									</svg>
-									{$i18n.t('Collapse all')}
+									全部折叠
 								</button>
 							</Tooltip>
 
-							<Tooltip content={$i18n.t('Expand all messages')} placement="top">
+							<Tooltip content="展开全部消息" placement="top">
 								<button
 									type="button"
+									aria-label="展开全部消息"
 									class="owui-expand-all-button inline-flex items-center gap-1 rounded-full border border-gray-200 bg-gray-50 px-2.5 py-1 font-medium text-gray-600 hover:bg-gray-100 dark:border-gray-800 dark:bg-gray-850 dark:text-gray-300 dark:hover:bg-gray-800 transition"
 									on:click={() => setAllMessagesCollapsed(false)}
 								>
@@ -2153,7 +2155,7 @@
 									>
 										<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
 									</svg>
-									{$i18n.t('Expand all')}
+									全部展开
 								</button>
 							</Tooltip>
 						</div>
